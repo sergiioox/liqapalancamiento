@@ -1,0 +1,47 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora apalancamiento</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <p>Precio de entrada:
+        <br><input type="number" id="entrada">
+    </p>
+    <p>Stop loss / Precio Liq:
+        <br><input type="number" id="sl">
+    </p>
+    <p>Apalancamiento:
+        <br><input type="number" id="apalancamiento">
+    </p>
+    <input type="button" id="boton" value="Calcular">
+</body>
+<script type="text/javascript">
+    function round(num) {
+        var m = Number((Math.abs(num) * 100000).toPrecision(15));
+        return Math.round(m) / 100000 * Math.sign(num);
+    }
+    $('#boton').on('click', function() {
+        if ($('#entrada').val() && $('#sl').val()) {
+            var entrada = $('#entrada').val();
+            var sl = $('#sl').val();
+            x = entrada / sl;
+            y = x - 1;
+            z = 1 / y;
+            $('#apalancamiento').val(Math.floor(z));
+        } else if ($('#entrada').val() && $('#apalancamiento').val()) {
+            var entrada = $('#entrada').val();
+            var apto = $('#apalancamiento').val();
+            x = 1 / apto
+            y = x + 1
+            z = entrada / y
+            $('#sl').val(round(z));
+        } else {
+            alert('Rellene mínimo 2 campos para poder hacer el cálculo');
+        }
+    });
+</script>
+
+</html>
